@@ -4,29 +4,10 @@ import (
 	"bytes"
 	"fmt"
 	"log"
-	"net"
 	"os"
 	"path/filepath"
 	"time"
 )
-
-func SendUdp(logFileFormat, addr string, payload []byte) {
-	udpAddr, err := net.ResolveUDPAddr("udp", addr)
-	if err != nil {
-		Logger(logFileFormat, "Fail to resolv udp address %s (%s)\n", addr, err)
-	}
-
-	conn, err := net.DialUDP("udp", nil, udpAddr)
-	if err != nil {
-		Logger(logFileFormat, "Fail to connect to udp address %s (%s)\n", addr, err)
-	}
-	defer conn.Close()
-
-	_, err = conn.Write(payload)
-	if err != nil {
-		Logger(logFileFormat, "Fail to write to udp address %s (%s)\n", addr, err)
-	}
-}
 
 func Logger(genLogPath func(t time.Time) string, contentFormat string, v ...interface{}) {
 	var buffer bytes.Buffer
