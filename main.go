@@ -28,21 +28,11 @@ func SendUdp(logFileFormat, addr string, payload []byte) {
 	}
 }
 
-func genLogPath(format string, t time.Time) string {
-	m := t.Minute()
-	q := (m / 15) + 1
-
-	logf := fmt.Sprintf(format, t.Year(), t.Month(), t.Day(),
-		t.Year(), t.Month(), t.Day(), t.Hour(), q)
-
-	return logf
-}
-
-func Logger(logFileFormat, contentFormat string, v ...interface{}) {
+func Logger(genLogPath func(t time.Time) string, contentFormat string, v ...interface{}) {
 	var buffer bytes.Buffer
 
 	t := time.Now()
-	logFH := genLogPath(logFileFormat, t)
+	logFH := genLogPath(t)
 
 	dirname := filepath.Dir(logFH)
 	if _, err := os.Stat(dirname); err != nil {
