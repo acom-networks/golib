@@ -10,21 +10,21 @@ import (
 	"time"
 )
 
-func sendUdp(addr, content string) {
+func SendUdp(logFileFormat, addr string, payload []byte) {
 	udpAddr, err := net.ResolveUDPAddr("udp", addr)
 	if err != nil {
-		log.Fatalf("xxx")
+		Logger(logFileFormat, "Fail to resolv udp address %s (%s)\n", addr, err)
 	}
 
 	conn, err := net.DialUDP("udp", nil, udpAddr)
 	if err != nil {
-		log.Fatalf("xxx")
+		Logger(logFileFormat, "Fail to connect to udp address %s (%s)\n", addr, err)
 	}
 	defer conn.Close()
 
-	_, err = conn.Write([]byte(content))
+	_, err = conn.Write(payload)
 	if err != nil {
-		log.Fatalf("xxx")
+		Logger(logFileFormat, "Fail to write to udp address %s (%s)\n", addr, err)
 	}
 }
 
