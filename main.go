@@ -17,7 +17,7 @@ func Logger(genLogPath func(t time.Time) string, contentFormat string, v ...inte
 
 	dirname := filepath.Dir(logFH)
 	if _, err := os.Stat(dirname); err != nil {
-		os.MkdirAll(dirname, 0644)
+		os.MkdirAll(dirname, 0755)
 	}
 
 	f, err := os.OpenFile(logFH, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644)
