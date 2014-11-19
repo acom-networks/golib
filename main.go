@@ -26,7 +26,7 @@ func Logger(genLogPath func(t time.Time) string, contentFormat string, v ...inte
 	}
 
 	buffer.WriteString("[")
-	buffer.WriteString(t.String())
+	buffer.WriteString(t.Format(time.RFC3339Nano))
 	buffer.WriteString("] ")
 	buffer.WriteString(contentFormat)
 
