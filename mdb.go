@@ -90,6 +90,10 @@ func (mw *MdbWrapper) Close() error {
 	return nil
 }
 
+func (mw *MdbWrapper) Stat() (*mdb.Stat, error) {
+	return mw.env.Stat()
+}
+
 func (mw *MdbWrapper) Del(bucket string, key []byte) error {
 	txn, err := mw.env.BeginTxn(nil, 0)
 	if err != nil {
