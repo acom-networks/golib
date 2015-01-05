@@ -12,7 +12,7 @@ func dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, timeout)
 }
 
-func sendSms(url string) (*http.Response, error) {
+func SendSms(url string) (*http.Response, error) {
 	transport := http.Transport{
 		Dial: dialTimeout,
 	}

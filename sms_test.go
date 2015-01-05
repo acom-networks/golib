@@ -22,5 +22,5 @@ func TestSendSms(t *testing.T) {
 	defer ts.Close()
 
 	msg := fmt.Sprintf("%s/?mesg=fookey", ts.URL)
-	sendSms(msg)
+	SendSms(msg)
 }
