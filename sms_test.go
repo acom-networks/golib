@@ -15,12 +15,12 @@ func TestSendSms(t *testing.T) {
 		if r.Header == nil {
 			t.Errorf("Expected non-nil request Header")
 		}
-		if r.URL.Query().Get("mesg") != "fookey" {
-			t.Errorf("Expected 'mesg' == %q; got %q", "fookey", r.URL.Query().Get("mesg"))
+		if r.URL.Query().Get("mesg") != "fookey 123" {
+			t.Errorf("Expected 'mesg' == %q; got %q", "fookey 123", r.URL.Query().Get("mesg"))
 		}
 	}))
 	defer ts.Close()
 
-	msg := fmt.Sprintf("%s/?mesg=fookey", ts.URL)
-	SendSms(msg)
+	uri := fmt.Sprintf("%s/?mesg=", ts.URL)
+	SendSms(uri, "fookey 123")
 }

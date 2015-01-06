@@ -1,8 +1,10 @@
 package acom
 
 import (
+	"fmt"
 	"net"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -12,7 +14,7 @@ func dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, timeout)
 }
 
-func SendSms(url string) (*http.Response, error) {
+func SendSms(uri, msg string) (*http.Response, error) {
 	transport := http.Transport{
 		Dial: dialTimeout,
 	}
@@ -21,6 +23,7 @@ func SendSms(url string) (*http.Response, error) {
 		Transport: &transport,
 	}
 
-	resp, err := client.Get(url)
+	ourl := fmt.Sprintf("%s%s", uri, url.QueryEscape(msg))
+	resp, err := client.Get(ourl)
 	return resp, err
 }
